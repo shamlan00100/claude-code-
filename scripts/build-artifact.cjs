@@ -14,9 +14,9 @@ const jsFile = fs.readdirSync(path.join(DIST, 'assets')).find((f) => f.endsWith(
 const css = fs.readFileSync(path.join(DIST, 'assets', cssFile), 'utf8')
 const js = fs.readFileSync(path.join(DIST, 'assets', jsFile), 'utf8')
 
-const html = `<title>Focus PT — Iron & Chalk</title>
+const html = `<title>Focus PT — Scoreboard</title>
 <style>
-  html, body { background: #EDEAE3; }
+  html, body { background: #12232A; }
 </style>
 <style>${css}</style>
 <div id="root"></div>
