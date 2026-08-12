@@ -30,7 +30,8 @@ const routes = [
 
   for (const [name, route] of routes) {
     if (only && name !== only) continue
-    await page.goto(BASE + route, { waitUntil: 'load', timeout: 15000 })
+    const url = route === '/' ? BASE + '/' : BASE + '/#' + route
+    await page.goto(url, { waitUntil: 'load', timeout: 15000 })
     await page.waitForTimeout(400)
     const fullPage = name === 'components' || name === 'home'
     await page.screenshot({ path: path.join(OUT, `${name}.png`), fullPage })

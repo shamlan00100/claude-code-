@@ -29,7 +29,7 @@ export function SnapMeal() {
           <Camera className="h-4.5 w-4.5" /> Retake photo
         </Button>
 
-        <div className="flex items-center gap-2 rounded-sm bg-warning-soft px-3 py-2 text-body-sm font-medium text-warning">
+        <div className="flex items-center gap-2 rounded-full bg-warning-soft px-3.5 py-2 text-body-sm font-medium text-warning">
           <Clock className="h-4 w-4 shrink-0" />
           Awaiting Coach Fahad to confirm portions · logged {activeMeal.loggedAt}
         </div>
@@ -41,23 +41,23 @@ export function SnapMeal() {
         )}
 
         {/* Totals */}
-        <section className="rounded-md border-2 border-ink bg-ink p-4 text-background">
-          <p className="text-label uppercase text-accent">Estimated totals</p>
-          <p className="mt-1 font-display text-display-md tabular">
-            {totals.calories} <span className="text-heading-md font-semibold text-border-subtle">kcal</span>
+        <section className="rounded-md border border-primary/25 bg-surface-raised p-4 shadow-card">
+          <p className="text-label text-primary">Estimated totals</p>
+          <p className="mt-1 font-mono text-display-md font-bold tabular text-ink">
+            {totals.calories} <span className="text-heading-md font-semibold text-ink-faint">kcal</span>
           </p>
-          <div className="mt-3 grid grid-cols-3 gap-2 border-t border-white/15 pt-3">
+          <div className="mt-3 grid grid-cols-3 gap-2 border-t border-border-subtle pt-3">
             <div>
-              <p className="tabular text-heading-md font-extrabold">{totals.proteinG}g</p>
-              <p className="text-label uppercase text-border-subtle">Protein</p>
+              <p className="tabular font-mono text-heading-md font-bold text-ink">{totals.proteinG}g</p>
+              <p className="text-label text-ink-faint">Protein</p>
             </div>
             <div>
-              <p className="tabular text-heading-md font-extrabold">{totals.carbsG}g</p>
-              <p className="text-label uppercase text-border-subtle">Carbs</p>
+              <p className="tabular font-mono text-heading-md font-bold text-ink">{totals.carbsG}g</p>
+              <p className="text-label text-ink-faint">Carbs</p>
             </div>
             <div>
-              <p className="tabular text-heading-md font-extrabold">{totals.fatG}g</p>
-              <p className="text-label uppercase text-border-subtle">Fat</p>
+              <p className="tabular font-mono text-heading-md font-bold text-ink">{totals.fatG}g</p>
+              <p className="text-label text-ink-faint">Fat</p>
             </div>
           </div>
         </section>
@@ -67,13 +67,13 @@ export function SnapMeal() {
           <h2 className="mb-2.5 text-eyebrow uppercase text-ink-soft">What we found</h2>
           <ul className="flex flex-col gap-2.5">
             {activeMeal.items.map((item) => (
-              <li key={item.id} className="rounded-md border-2 border-ink bg-surface px-3.5 py-3">
+              <li key={item.id} className="rounded-md border border-border-subtle bg-surface px-3.5 py-3 shadow-card">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <p className="text-body-lg font-semibold leading-snug text-ink">{item.name}</p>
                     <p className="text-body-sm text-ink-soft">{item.portion}</p>
                   </div>
-                  <p className="shrink-0 tabular text-body-lg font-semibold text-ink">{item.calories} kcal</p>
+                  <p className="shrink-0 tabular font-mono text-body-lg font-semibold text-ink">{item.calories} kcal</p>
                 </div>
                 <div className="mt-2 flex items-center justify-between gap-3">
                   <ConfidenceTag level={item.confidence} />

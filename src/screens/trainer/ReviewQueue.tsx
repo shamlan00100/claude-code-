@@ -46,7 +46,7 @@ export function ReviewQueue() {
                 const allConfirmed = meal.items.every((i) => get(i.id).confirmed)
                 const isOpen = openMeal === meal.id
                 return (
-                  <div key={meal.id} className="rounded-md border-2 border-ink bg-surface">
+                  <div key={meal.id} className="rounded-md border border-border-subtle bg-surface shadow-card">
                     <button
                       type="button"
                       onClick={() => setOpenMeal(isOpen ? null : meal.id)}
@@ -63,14 +63,14 @@ export function ReviewQueue() {
                     </button>
 
                     {isOpen && (
-                      <div className="flex flex-col gap-2.5 border-t-2 border-ink px-3.5 py-3">
+                      <div className="flex flex-col gap-2.5 border-t border-border-subtle px-3.5 py-3">
                         {meal.items.map((item) => {
                           const state = get(item.id)
                           return (
                             <div
                               key={item.id}
                               className={cn(
-                                'rounded-sm border-2 px-3 py-2.5 transition-colors duration-fast',
+                                'rounded-sm border px-3 py-2.5 transition-colors duration-fast',
                                 state.confirmed ? 'border-success bg-success-soft/40' : 'border-border-subtle'
                               )}
                             >
@@ -111,8 +111,8 @@ export function ReviewQueue() {
               <EmptyQueue label="Form check queue clear" hint="New submissions from clients will show up here." />
             ) : (
               pendingVideos.map((v) => (
-                <div key={v.id} className="flex gap-3 rounded-md border-2 border-ink bg-surface p-3">
-                  <div className="flex aspect-square w-20 shrink-0 items-center justify-center rounded-sm border-2 border-ink bg-surface-sunken">
+                <div key={v.id} className="flex gap-3 rounded-md border border-border-subtle bg-surface p-3 shadow-card">
+                  <div className="flex aspect-square w-20 shrink-0 items-center justify-center rounded-sm border border-border-subtle bg-surface-sunken">
                     <Play className="h-5 w-5 text-ink" fill="currentColor" />
                   </div>
                   <div className="min-w-0 flex-1">
@@ -141,7 +141,7 @@ export function ReviewQueue() {
 
 function EmptyQueue({ label, hint }: { label: string; hint: string }) {
   return (
-    <div className="flex flex-col items-center gap-1 rounded-md border-2 border-dashed border-border-subtle px-6 py-10 text-center">
+    <div className="flex flex-col items-center gap-1 rounded-md border border-dashed border-border-subtle px-6 py-10 text-center">
       <p className="text-heading-sm text-ink">{label}</p>
       <p className="text-body-sm text-ink-soft">{hint}</p>
     </div>

@@ -25,10 +25,10 @@ export function Today() {
 
       <div className="flex flex-col gap-5 px-5 pb-8 pt-4">
         {/* Next session */}
-        <div className="rounded-md border-3 border-ink bg-ink p-4 text-background">
-          <p className="text-label uppercase text-accent">Next session · {todaySession.startTime}</p>
-          <h2 className="mt-1 font-display text-heading-lg">{todaySession.dayLabel}</h2>
-          <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-body-sm text-border-subtle">
+        <div className="rounded-md border border-primary/25 bg-surface-raised p-4 shadow-glow">
+          <p className="text-label text-primary">Next session · {todaySession.startTime}</p>
+          <h2 className="mt-1 font-display text-heading-lg text-ink">{todaySession.dayLabel}</h2>
+          <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-body-sm text-ink-soft">
             <span className="flex items-center gap-1.5">
               <MapPin className="h-3.5 w-3.5" /> {todaySession.gym}
             </span>
@@ -42,7 +42,7 @@ export function Today() {
         </div>
 
         {/* Macros */}
-        <section className="rounded-md border-2 border-ink bg-surface p-4">
+        <section className="rounded-md border border-border-subtle bg-surface p-4 shadow-card">
           <div className="mb-3 flex items-center justify-between">
             <h2 className="text-heading-md">Today's nutrition</h2>
             <Link to="/app/meals" className="flex items-center text-body-sm font-semibold text-primary">
@@ -66,10 +66,10 @@ export function Today() {
         </section>
 
         {/* Upcoming PT session */}
-        <section className="rounded-md border-2 border-ink bg-surface p-4">
+        <section className="rounded-md border border-border-subtle bg-surface p-4 shadow-card">
           <h2 className="mb-3 text-heading-md">Upcoming with your coach</h2>
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-ink bg-primary-soft">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-primary-soft">
               <CalendarCheck className="h-5 w-5 text-primary" />
             </div>
             <div className="min-w-0 flex-1">
@@ -87,7 +87,7 @@ export function Today() {
           <h2 className="mb-2.5 text-eyebrow uppercase text-ink-soft">Coach activity</h2>
           <ul className="flex flex-col gap-2">
             {activity.map((a) => (
-              <li key={a.id} className="flex items-center gap-3 rounded-md border-2 border-border-subtle bg-surface/60 px-3.5 py-3">
+              <li key={a.id} className="flex items-center gap-3 rounded-md border border-border-subtle bg-surface/60 px-3.5 py-3">
                 <a.icon className="h-4 w-4 shrink-0 text-accent" />
                 <span className="min-w-0 flex-1 truncate text-body-md text-ink">{a.text}</span>
                 <span className="shrink-0 text-body-sm text-ink-faint">{a.time}</span>

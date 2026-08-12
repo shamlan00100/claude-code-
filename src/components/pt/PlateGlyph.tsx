@@ -24,8 +24,8 @@ function plateDiameter(kg: number) {
 }
 
 function plateTone(kg: number) {
-  if (kg >= 20) return 'bg-ink'
-  if (kg >= 5) return 'bg-primary'
+  if (kg >= 20) return 'bg-primary'
+  if (kg >= 5) return 'bg-ink'
   return 'bg-accent'
 }
 

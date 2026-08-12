@@ -38,7 +38,7 @@ export function TrendChart({
   return (
     <div>
       <div className="mb-1 flex items-end justify-between">
-        <p className="tabular font-display text-display-sm">
+        <p className="tabular font-mono text-display-sm font-bold">
           {last.value}
           <span className="ms-1 text-heading-sm font-semibold text-ink-soft">{unit}</span>
         </p>

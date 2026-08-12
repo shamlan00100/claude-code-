@@ -15,7 +15,7 @@ export function ProgramBuilder() {
       <TopBar title="Programs" meta={activeProgram.name} showHome />
 
       <div className="flex flex-col gap-4 px-5 pb-8 pt-4">
-        <div className="flex items-center justify-between gap-3 rounded-md border-2 border-ink bg-surface px-3.5 py-3">
+        <div className="flex items-center justify-between gap-3 rounded-md border border-border-subtle bg-surface px-3.5 py-3 shadow-card">
           <div className="flex items-center gap-2.5">
             <User className="h-4 w-4 text-ink-soft" />
             <div>
@@ -32,7 +32,7 @@ export function ProgramBuilder() {
           {activeProgram.weeks.map((week) => {
             const weekOpen = openWeek === week.id
             return (
-              <div key={week.id} className="rounded-md border-2 border-ink bg-surface">
+              <div key={week.id} className="rounded-md border border-border-subtle bg-surface shadow-card">
                 <button
                   type="button"
                   onClick={() => setOpenWeek(weekOpen ? undefined : week.id)}
@@ -46,11 +46,11 @@ export function ProgramBuilder() {
                 </button>
 
                 {weekOpen && (
-                  <div className="flex flex-col gap-2 border-t-2 border-ink p-2.5">
+                  <div className="flex flex-col gap-2 border-t border-border-subtle p-2.5">
                     {week.days.map((day) => {
                       const dayOpen = openDay === day.id
                       return (
-                        <div key={day.id} className="rounded-sm border-2 border-border-subtle">
+                        <div key={day.id} className="rounded-sm border border-border-subtle">
                           <button
                             type="button"
                             onClick={() => setOpenDay(dayOpen ? undefined : day.id)}

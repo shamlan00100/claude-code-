@@ -21,7 +21,7 @@ function ScreenList({ items }: { items: { to: string; label: string; desc: strin
         <li key={item.to}>
           <Link
             to={item.to}
-            className="group flex items-center justify-between gap-4 rounded-md border-2 border-ink bg-surface px-4 py-3.5 transition-colors duration-fast hover:bg-ink/[0.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="group flex items-center justify-between gap-4 rounded-md border border-border-subtle bg-surface px-4 py-3.5 shadow-card transition-colors duration-fast hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <span className="min-w-0">
               <span className="block text-heading-sm">{item.label}</span>
@@ -39,7 +39,7 @@ export function Home() {
   return (
     <div className="mx-auto min-h-full max-w-xl bg-background px-5 py-10">
       <p className="text-eyebrow uppercase text-primary">Focus PT — Prototype</p>
-      <h1 className="mt-1.5 font-display text-display-lg">Iron &amp; Chalk</h1>
+      <h1 className="mt-1.5 font-display text-display-lg">Scoreboard</h1>
       <p className="mt-2 max-w-sm text-body-lg text-ink-soft">
         Every screen below is fully navigable. Start with the client app or the trainer app, or open the component library.
       </p>
@@ -57,7 +57,7 @@ export function Home() {
       <div className="mt-9">
         <Link
           to="/components"
-          className="flex items-center justify-between gap-4 rounded-md border-2 border-dashed border-ink-faint px-4 py-3.5 text-heading-sm transition-colors duration-fast hover:bg-ink/[0.03]"
+          className="flex items-center justify-between gap-4 rounded-md border border-dashed border-ink-faint px-4 py-3.5 text-heading-sm transition-colors duration-fast hover:border-primary/40 hover:text-primary"
         >
           Component library
           <ArrowUpRight className="h-5 w-5 text-ink-faint" />

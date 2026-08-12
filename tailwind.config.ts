@@ -1,6 +1,6 @@
 import type { Config } from 'tailwindcss'
 
-// Focus PT — "Iron & Chalk" design system
+// Focus PT — "Scoreboard" design system
 // All colour, type, spacing and radius are semantic tokens, resolved through
 // CSS variables in src/index.css so they can be reused verbatim in Lovable.
 
@@ -59,9 +59,9 @@ export default {
         ring: 'hsl(var(--ring))',
       },
       fontFamily: {
-        display: ['"Big Shoulders Display"', 'system-ui', 'sans-serif'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+        display: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+        sans: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+        mono: ['"Space Mono"', 'ui-monospace', 'monospace'],
       },
       fontSize: {
         'display-xl': ['3.5rem', { lineHeight: '1', letterSpacing: '-0.01em', fontWeight: '900' }],
@@ -94,9 +94,10 @@ export default {
         3: '3px',
       },
       boxShadow: {
-        plate: '0 1px 0 hsl(var(--ink) / 0.06)',
-        card: '0 1px 2px hsl(var(--ink) / 0.04)',
-        raised: '0 6px 16px hsl(var(--ink) / 0.10)',
+        plate: '0 1px 2px hsl(0 0% 0% / 0.18)',
+        card: '0 1px 3px hsl(0 0% 0% / 0.22), 0 1px 1px hsl(0 0% 0% / 0.14)',
+        raised: '0 12px 32px hsl(0 0% 0% / 0.38), 0 2px 8px hsl(0 0% 0% / 0.22)',
+        glow: '0 0 0 1px hsl(var(--primary) / 0.4), 0 8px 24px hsl(var(--primary) / 0.22)',
       },
       transitionTimingFunction: {
         settle: 'cubic-bezier(0.16, 1, 0.3, 1)',

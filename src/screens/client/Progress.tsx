@@ -10,12 +10,12 @@ export function Progress() {
       <TopBar title="Progress" meta="Yusuf Almannai" showHome />
 
       <div className="flex flex-col gap-5 px-5 pb-8 pt-4">
-        <section className="rounded-md border-2 border-ink bg-surface p-4">
+        <section className="rounded-md border border-border-subtle bg-surface p-4 shadow-card">
           <p className="mb-1 text-eyebrow uppercase text-ink-soft">Bodyweight</p>
           <TrendChart points={bodyweightTrend.map((p) => ({ date: p.date, value: p.kg }))} unit="kg" accent="primary" />
         </section>
 
-        <section className="rounded-md border-2 border-ink bg-surface p-4">
+        <section className="rounded-md border border-border-subtle bg-surface p-4 shadow-card">
           <p className="mb-1 text-eyebrow uppercase text-ink-soft">{liftTrend.exercise}</p>
           <TrendChart points={liftTrend.points.map((p) => ({ date: p.date, value: p.kg }))} unit="kg" accent="accent" />
         </section>
@@ -24,10 +24,10 @@ export function Progress() {
           <h2 className="mb-2.5 text-eyebrow uppercase text-ink-soft">Measurements</h2>
           <div className="grid grid-cols-2 gap-2.5">
             {measurements.map((m) => (
-              <div key={m.label} className="rounded-md border-2 border-ink bg-surface px-3.5 py-3">
+              <div key={m.label} className="rounded-md border border-border-subtle bg-surface px-3.5 py-3 shadow-card">
                 <p className="text-label uppercase text-ink-faint">{m.label}</p>
                 <div className="mt-1 flex items-baseline justify-between">
-                  <p className="tabular text-heading-md font-extrabold">{m.value}</p>
+                  <p className="tabular font-mono text-heading-md font-bold text-ink">{m.value}</p>
                   <span
                     className={`flex items-center gap-0.5 text-body-sm font-semibold ${
                       m.direction === 'down' ? 'text-success' : 'text-ink-soft'
@@ -53,7 +53,7 @@ export function Progress() {
             {progressPhotos.map((p) => (
               <div
                 key={p.id}
-                className="flex aspect-[3/4] flex-col items-center justify-end gap-1 rounded-md border-2 border-ink bg-surface-sunken pb-2"
+                className="flex aspect-[3/4] flex-col items-center justify-end gap-1 rounded-md border border-border-subtle bg-surface-sunken pb-2"
               >
                 <span className="text-body-sm font-semibold text-ink-soft">{p.label}</span>
                 <span className="text-label uppercase text-ink-faint">{p.date}</span>

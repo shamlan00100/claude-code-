@@ -64,8 +64,12 @@ function ClientRow({ client, flags }: { client: Client; flags: Flag[] }) {
       <button
         type="button"
         className={cn(
-          'flex w-full items-start gap-3 rounded-md border-2 bg-surface px-3.5 py-3 text-start transition-colors duration-fast hover:bg-ink/[0.03]',
-          flags.some((f) => f.tone === 'destructive') ? 'border-destructive' : flags.length > 0 ? 'border-warning' : 'border-ink'
+          'flex w-full items-start gap-3 rounded-md border px-3.5 py-3 text-start shadow-card transition-colors duration-fast',
+          flags.some((f) => f.tone === 'destructive')
+            ? 'border-destructive/50 bg-destructive-soft/40 hover:border-destructive'
+            : flags.length > 0
+              ? 'border-warning/50 bg-warning-soft/30 hover:border-warning'
+              : 'border-border-subtle bg-surface hover:border-primary/40'
         )}
       >
         <Avatar className="mt-0.5">

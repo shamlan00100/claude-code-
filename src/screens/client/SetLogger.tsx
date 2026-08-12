@@ -77,7 +77,7 @@ export function SetLogger() {
         </div>
 
         {allDone && (
-          <div className="rounded-md border-2 border-success bg-success-soft/60 px-4 py-3.5">
+          <div className="rounded-md border border-success/40 bg-success-soft/60 px-4 py-3.5 shadow-card">
             <p className="text-heading-sm text-success">Barbell Back Squat complete</p>
             <p className="mt-0.5 text-body-md text-ink-soft">Nice work — on to Romanian deadlift next.</p>
           </div>
@@ -91,7 +91,7 @@ export function SetLogger() {
             {nextExercises.map((ex) => (
               <li
                 key={ex.id}
-                className="flex items-center justify-between gap-3 rounded-md border-2 border-border-subtle bg-surface/60 px-3.5 py-3"
+                className="flex items-center justify-between gap-3 rounded-md border border-border-subtle bg-surface/60 px-3.5 py-3"
               >
                 <span className="min-w-0">
                   <span className="block truncate text-body-lg font-semibold text-ink-soft">{ex.name}</span>

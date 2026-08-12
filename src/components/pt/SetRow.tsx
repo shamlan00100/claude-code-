@@ -26,14 +26,14 @@ export function SetRow({
 }) {
   if (set.status === 'active') {
     return (
-      <div className="relative rounded-md border-3 border-primary bg-surface p-4 shadow-raised">
+      <div className="relative rounded-md border border-primary/50 bg-surface-raised p-4 shadow-glow">
         <div className="mb-3 flex items-center justify-between">
-          <span className="font-display text-heading-md font-extrabold text-primary">Set {set.setNumber}</span>
+          <span className="font-display text-heading-md font-bold text-primary">Set {set.setNumber}</span>
           <ReferenceLine set={set} />
         </div>
 
         <div className="mb-4">
-          <p className="mb-1.5 text-label uppercase text-ink-soft">Weight (kg)</p>
+          <p className="mb-1.5 text-label uppercase tracking-[0.06em] text-ink-faint">Weight (kg)</p>
           <div className="flex items-center gap-3">
             <NumberStepper
               value={set.weightKg ?? 0}
@@ -47,11 +47,11 @@ export function SetRow({
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <p className="mb-1.5 text-label uppercase text-ink-soft">Reps</p>
+            <p className="mb-1.5 text-label uppercase tracking-[0.06em] text-ink-faint">Reps</p>
             <NumberStepper value={set.reps ?? 0} step={1} min={0} onChange={(v) => onChangeActive?.({ reps: v })} />
           </div>
           <div>
-            <p className="mb-1.5 text-label uppercase text-ink-soft">RPE</p>
+            <p className="mb-1.5 text-label uppercase tracking-[0.06em] text-ink-faint">RPE</p>
             <NumberStepper
               value={set.rpe ?? 0}
               step={0.5}
@@ -75,18 +75,18 @@ export function SetRow({
   return (
     <div
       className={cn(
-        'grid grid-cols-[28px_1fr_1fr_1fr] items-center gap-2.5 rounded-md border-2 bg-surface px-3.5 py-3',
-        isPending ? 'border-dashed border-border-subtle' : 'border-ink'
+        'grid grid-cols-[28px_1fr_1fr_1fr] items-center gap-2.5 rounded-md border bg-surface px-3.5 py-3 shadow-card',
+        isPending ? 'border-dashed border-border-subtle' : 'border-border-subtle'
       )}
     >
-      <span className={cn('font-display text-heading-sm font-extrabold', isPending ? 'text-ink-faint' : 'text-ink-soft')}>
+      <span className={cn('font-mono text-heading-sm font-bold', isPending ? 'text-ink-faint' : 'text-ink-soft')}>
         {String(set.setNumber).padStart(2, '0')}
       </span>
 
       <div>
-        <p className="text-label uppercase text-ink-faint">Weight</p>
+        <p className="text-label uppercase tracking-[0.06em] text-ink-faint">Weight</p>
         <div className="flex items-baseline gap-1.5">
-          <span className={cn('tabular font-display text-display-sm', isPending && 'text-ink-faint')}>
+          <span className={cn('tabular font-mono text-display-sm font-bold', isPending && 'text-ink-faint')}>
             {set.weightKg ?? '—'}
           </span>
           {!isPending && <PlateGlyph weightKg={set.weightKg} className="hidden sm:flex" />}
@@ -94,8 +94,8 @@ export function SetRow({
       </div>
 
       <div>
-        <p className="text-label uppercase text-ink-faint">Reps</p>
-        <p className={cn('tabular font-display text-display-sm', isPending && 'text-ink-faint')}>{set.reps ?? '—'}</p>
+        <p className="text-label uppercase tracking-[0.06em] text-ink-faint">Reps</p>
+        <p className={cn('tabular font-mono text-display-sm font-bold', isPending && 'text-ink-faint')}>{set.reps ?? '—'}</p>
         <p className="truncate text-body-sm text-ink-faint">
           {set.lastSessionWeightKg != null ? `Last ${set.lastSessionWeightKg}×${set.lastSessionReps}` : '—'}
         </p>
@@ -103,8 +103,8 @@ export function SetRow({
 
       <div className="flex items-start justify-between gap-1">
         <div>
-          <p className="text-label uppercase text-ink-faint">RPE</p>
-          <p className={cn('tabular font-display text-display-sm', isPending && 'text-ink-faint')}>{set.rpe ?? '—'}</p>
+          <p className="text-label uppercase tracking-[0.06em] text-ink-faint">RPE</p>
+          <p className={cn('tabular font-mono text-display-sm font-bold', isPending && 'text-ink-faint')}>{set.rpe ?? '—'}</p>
         </div>
         {set.isPr && <PRBadge className="mt-0.5" />}
       </div>

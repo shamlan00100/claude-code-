@@ -28,7 +28,7 @@ function Swatch({ name, varName, textOn = 'text-ink' }: { name: string; varName:
   return (
     <div className="flex flex-col gap-1.5">
       <div
-        className={`flex h-14 items-end rounded-sm border-2 border-ink p-1.5 text-label uppercase ${textOn}`}
+        className={`flex h-14 items-end rounded-sm border border-border-subtle p-1.5 text-label ${textOn}`}
         style={{ background: `hsl(var(${varName}))` }}
       >
         {name}
@@ -48,7 +48,7 @@ export function ComponentLibrary() {
       <p className="text-eyebrow uppercase text-primary">Focus PT</p>
       <h1 className="mt-1.5 font-display text-display-lg">Component library</h1>
       <p className="mt-2 max-w-lg text-body-lg text-ink-soft">
-        Every primitive in every state — Iron &amp; Chalk. Restyled shadcn/ui base plus the Focus PT signature set.
+        Every primitive in every state — Scoreboard. Restyled shadcn/ui base plus the Focus PT signature set.
       </p>
 
       <div className="mt-10 flex flex-col gap-12">
@@ -57,17 +57,17 @@ export function ComponentLibrary() {
             <Swatch name="Background" varName="--background" />
             <Swatch name="Surface" varName="--surface" />
             <Swatch name="Ink" varName="--ink" textOn="text-background" />
-            <Swatch name="Primary — iron" varName="--primary" textOn="text-primary-foreground" />
-            <Swatch name="Accent — brass" varName="--accent" textOn="text-accent-foreground" />
+            <Swatch name="Primary — brass gold" varName="--primary" textOn="text-primary-foreground" />
+            <Swatch name="Accent — coral" varName="--accent" textOn="text-accent-foreground" />
             <Swatch name="Success" varName="--success" textOn="text-success-foreground" />
-            <Swatch name="Warning" varName="--warning" />
-            <Swatch name="Destructive — rust" varName="--destructive" textOn="text-destructive-foreground" />
+            <Swatch name="Warning" varName="--warning" textOn="text-warning-foreground" />
+            <Swatch name="Destructive" varName="--destructive" textOn="text-destructive-foreground" />
             <Swatch name="Border subtle" varName="--border-subtle" />
           </div>
         </Section>
 
         <Section title="Type scale">
-          <div className="flex flex-col gap-3 rounded-md border-2 border-ink bg-surface p-4">
+          <div className="flex flex-col gap-3 rounded-md border border-border-subtle bg-surface p-4 shadow-card">
             <p className="font-display text-display-xl">Display XL 56</p>
             <p className="font-display text-display-lg">Display LG 40</p>
             <p className="font-display text-display-md">Display MD 28</p>
@@ -75,7 +75,8 @@ export function ComponentLibrary() {
             <p className="text-heading-md">Heading MD 18</p>
             <p className="text-body-lg">Body LG 16 — the quick brown fox jumps over the lazy dog</p>
             <p className="text-body-md text-ink-soft">Body MD 14 — the quick brown fox jumps over the lazy dog</p>
-            <p className="text-label uppercase text-ink-soft">Label 11 uppercase tracked</p>
+            <p className="text-label uppercase tracking-[0.06em] text-ink-soft">Label 11 uppercase tracked</p>
+            <p className="font-mono text-display-sm font-bold tabular text-primary">100.0 kg — Space Mono, every digit</p>
           </div>
         </Section>
 
@@ -176,7 +177,7 @@ export function ComponentLibrary() {
         </Section>
 
         <Section title="Focus PT — signature set">
-          <div className="flex flex-col gap-4 rounded-md border-2 border-ink bg-surface p-4">
+          <div className="flex flex-col gap-4 rounded-md border border-border-subtle bg-surface p-4 shadow-card">
             <div>
               <p className="mb-2 text-body-sm font-semibold text-ink-soft">Plate glyph — reads the loaded bar at a glance</p>
               <div className="flex flex-wrap items-end gap-6">
@@ -215,7 +216,7 @@ export function ComponentLibrary() {
           <p className="max-w-md text-body-md text-ink-soft">
             Skeletons echo the shape of the content they replace — same card border, same rhythm — so nothing jumps when real data lands.
           </p>
-          <div className="flex flex-col gap-2.5 rounded-md border-2 border-ink bg-surface p-4">
+          <div className="flex flex-col gap-2.5 rounded-md border border-border-subtle bg-surface p-4 shadow-card">
             <div className="flex items-center gap-3">
               <Skeleton className="h-11 w-11 rounded-full" />
               <div className="flex-1">
@@ -288,8 +289,8 @@ function EmptyCard({
   action?: string
 }) {
   return (
-    <div className="flex flex-col items-start gap-2.5 rounded-md border-2 border-dashed border-border-subtle p-4">
-      <div className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-ink bg-surface-sunken">
+    <div className="flex flex-col items-start gap-2.5 rounded-md border border-dashed border-border-subtle p-4">
+      <div className="flex h-9 w-9 items-center justify-center rounded-full border border-border-subtle bg-surface-sunken">
         <Icon className="h-4.5 w-4.5 text-ink-soft" />
       </div>
       <p className="text-heading-sm">{title}</p>

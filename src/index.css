@@ -4,47 +4,49 @@
 
 @layer base {
   :root {
-    /* ---- Iron & Chalk — semantic colour tokens (H S% L%, consumed via hsl(var(--x))) ---- */
-    --background: 42 22% 91%;       /* chalk-dust ground */
-    --surface: 0 0% 100%;           /* raised card */
-    --surface-sunken: 43 20% 86%;   /* recessed wells, track fills, skeletons */
-    --surface-raised: 0 0% 100%;
+    /* ---- Scoreboard — semantic colour tokens (H S% L%, consumed via hsl(var(--x))) ----
+       A Gulf gym scoreboard for a warm petrol night: dark teal ground, brass-gold
+       and coral accents. Deliberately not near-black + acid-green/blue. */
+    --background: 197 40% 12%;      /* petrol-black ground */
+    --surface: 196 38% 17%;         /* raised card / panel */
+    --surface-raised: 197 35% 20%;  /* elevated surfaces — sheets, active cards */
+    --surface-sunken: 196 39% 10%;  /* recessed wells, track fills, skeletons */
 
-    --ink: 40 6% 10%;               /* primary text + structural borders */
-    --ink-soft: 44 5% 40%;          /* secondary text */
-    --ink-faint: 43 8% 57%;         /* tertiary / placeholder text */
+    --ink: 42 39% 88%;              /* primary text — warm ivory, not pure white */
+    --ink-soft: 194 13% 63%;        /* secondary text */
+    --ink-faint: 194 12% 44%;       /* tertiary / placeholder text */
 
-    --border: 40 6% 10%;            /* default structural border (heavy, deliberate) */
-    --border-subtle: 39 14% 75%;    /* knurl-grey hairline */
-    --border-strong: 40 6% 10%;
+    --border: 198 27% 28%;          /* default hairline */
+    --border-subtle: 198 31% 25%;   /* quieter hairline — dividers, disabled */
+    --border-strong: 198 27% 28%;
 
-    --primary: 5 59% 44%;           /* iron-oxide — primary actions, active state */
-    --primary-foreground: 0 0% 100%;
-    --primary-soft: 10 56% 89%;
+    --primary: 40 63% 55%;          /* brass gold — primary actions, focus, "right now" */
+    --primary-foreground: 196 33% 13%;
+    --primary-soft: 46 35% 17%;
 
-    --accent: 36 46% 45%;           /* brass — PR / celebratory / secondary emphasis */
-    --accent-foreground: 0 0% 100%;
-    --accent-soft: 37 53% 87%;
+    --accent: 13 73% 56%;           /* coral — PR / celebratory / advisory */
+    --accent-foreground: 35 70% 95%;
+    --accent-soft: 20 40% 16%;
 
-    --success: 103 21% 39%;         /* verified / synced / on-track */
-    --success-foreground: 0 0% 100%;
-    --success-soft: 90 24% 87%;
+    --success: 133 29% 56%;         /* verified / synced / on-track */
+    --success-foreground: 154 32% 9%;
+    --success-soft: 133 24% 15%;
 
-    --warning: 42 59% 44%;          /* needs attention, not yet urgent */
-    --warning-foreground: 40 6% 10%;
-    --warning-soft: 42 65% 85%;
+    --warning: 45 76% 57%;          /* needs attention, not yet urgent */
+    --warning-foreground: 38 55% 9%;
+    --warning-soft: 46 42% 14%;
 
-    --destructive: 6 64% 34%;       /* rusted iron — delete, error, missed */
-    --destructive-foreground: 0 0% 100%;
-    --destructive-soft: 12 42% 86%;
+    --destructive: 6 63% 46%;       /* delete, error, missed */
+    --destructive-foreground: 35 70% 95%;
+    --destructive-soft: 12 31% 15%;
 
-    --ring: 5 59% 44%;
+    --ring: 40 63% 55%;
 
-    /* ---- Radius scale ---- */
-    --radius-sm: 0.375rem;   /* 6px  — inputs, chips */
-    --radius-md: 0.625rem;   /* 10px — cards, buttons */
-    --radius-lg: 0.875rem;   /* 14px — sheets, modals */
-    --radius-xl: 1.25rem;    /* 20px — full-screen surfaces */
+    /* ---- Radius scale — softer, more contemporary than v1 ---- */
+    --radius-sm: 0.5rem;     /* 8px  — inputs, chips */
+    --radius-md: 1rem;       /* 16px — cards, buttons */
+    --radius-lg: 1.375rem;   /* 22px — sheets, modals */
+    --radius-xl: 1.75rem;    /* 28px — full-screen surfaces */
   }
 }
 
@@ -56,20 +58,30 @@
     height: 100%;
   }
   html {
-    color-scheme: light;
+    color-scheme: dark;
   }
   body {
     @apply bg-background text-ink font-sans antialiased;
     font-feature-settings: 'tnum' 1, 'cv11' 1;
+    background-image: radial-gradient(ellipse 120% 60% at 50% -10%, hsl(var(--surface-raised) / 0.55), transparent 60%);
+    background-attachment: fixed;
   }
   ::selection {
-    @apply bg-primary/20;
+    @apply bg-primary/30;
   }
 
   /* Tabular numerals everywhere a number can change under a set — weight, reps,
      RPE, timers — so digits never reflow the layout while a client is mid-set. */
   .tabular {
     font-variant-numeric: tabular-nums;
+  }
+
+  /* Glass panels — used sparingly: the bottom nav and top bar only, so it
+     reads as one deliberate move rather than a texture slapped everywhere. */
+  .glass {
+    background-color: hsl(var(--surface) / 0.72);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
   }
 
   @media (prefers-reduced-motion: reduce) {

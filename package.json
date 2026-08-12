@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "shots": "node scripts/screenshot.cjs"
+    "shots": "node scripts/screenshot.cjs",
+    "build:pages": "tsc -b && GH_PAGES=true vite build --outDir docs && cp docs/index.html docs/404.html"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.2.6",

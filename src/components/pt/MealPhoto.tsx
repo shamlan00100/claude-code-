@@ -6,7 +6,7 @@ export function MealPhoto({ label, className }: { label: string; className?: str
   return (
     <div
       className={cn(
-        'relative flex w-full items-center justify-center overflow-hidden rounded-md border-2 border-ink bg-surface-sunken',
+        'relative flex w-full items-center justify-center overflow-hidden rounded-md border border-border-subtle bg-surface-sunken',
         className
       )}
       style={{ aspectRatio: '4 / 3' }}

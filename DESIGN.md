@@ -1,7 +1,7 @@
 # Focus PT — Design System
 
-**Direction: Iron & Chalk**
-**Status: approved for build (Step 2 of 3 complete — tokens, components, and all 7 screens shipped as a running prototype)**
+**Direction: Scoreboard**
+**Status: v2 — supersedes the original Iron & Chalk build (see §9 for why)**
 
 This document is the build brief. It should be pasted into Lovable ahead of the real Supabase rebuild — everything in it is a decision, not a suggestion, and the reasoning is included so it survives a rebuild by someone who wasn't in the room.
 
@@ -9,11 +9,11 @@ This document is the build brief. It should be pasted into Lovable ahead of the 
 
 ## 1. The direction
 
-**Iron & Chalk** treats the app like the equipment it's meant to sit next to: a loaded barbell, chalk on your palms, a number written on a whiteboard before it's forgotten. It is light, not dark — a deliberate move against the near-black-plus-neon look every training app defaults to (Hevy, Whoop, Strong, and this product's own previous version). The ground is chalk-dust, not paper-cream and not carbon-black. The one thing every screen is allowed to borrow personality from is the loaded bar itself: plates, collars, the weight of iron.
+**Scoreboard** is a Gulf gym scoreboard reimagined for a warm petrol night: a deep teal-black ground, brass-gold digits, coral for what needs attention. It's dark, but deliberately not the near-black-plus-neon look every training app defaults to (Hevy, Whoop, Strong) — the ground has warmth (a teal bias, not true black) and the accent is brass gold, not acid green or electric blue. Glass and soft shadow do the elevation work that hard borders did in the previous pass; radius is generous; the interface reads like a considered, current product rather than a wireframe.
 
-Three directions were explored (see `/screenshots/step1-comparison.png` for the original comparison): a physical, plate-and-collar system (chosen); a coach's paper logbook; and a Gulf-night scoreboard. Iron & Chalk won because it's the most legible one-handed, mid-set, in bad light — the actual condition the hero screen has to survive — and because its signature element (the plate glyph) is the one idea in all three that couldn't be reskinned onto a different product.
+This was originally one of three directions explored in Step 1 (see `/screenshots/step1-comparison.png`). The first build shipped a different direction — **Iron & Chalk**, a light industrial system (chalk-dust ground, iron-oxide red, thick structural borders). It was reviewed and read as heavy, boxy, and dated rather than considered. Scoreboard was already fully specified from Step 1, so rather than inventing a fourth direction from scratch, this rebuild promotes it: same rigor, same signature element, a genuinely different surface language.
 
-**Why this isn't the cliché:** no near-black background, no acid-green or electric-blue accent, no glassmorphism, no big-number-on-a-card as the hero move, no emoji as iconography. The palette is warm and structural; the personality lives in thick borders, a condensed industrial display face, and one custom glyph — not in gradients or glow.
+**Why this isn't the generic dark cliché:** the brief that shaped Step 1 explicitly ruled out near-black-plus-single-neon-accent, because it's what every fitness app already looks like. Scoreboard avoids that specific trap on purpose — petrol teal instead of true black, brass gold instead of acid green/electric blue, coral reserved for alerts rather than doubling as the primary action color. It's dark and contemporary because that's what the room asked for; it still has a point of view instead of defaulting to the safest version of "modern dark app."
 
 ---
 
@@ -23,113 +23,126 @@ All colour is expressed as CSS custom properties in `H S% L%` form, consumed thr
 
 | Token | Value (HSL) | Approx. hex | Role |
 |---|---|---|---|
-| `--background` | `42 22% 91%` | `#EDEAE3` | Chalk-dust ground. The app's base surface — never pure white. |
-| `--surface` / `--surface-raised` | `0 0% 100%` | `#FFFFFF` | Cards, sheets, anything sitting on the ground. |
-| `--surface-sunken` | `43 20% 86%` | `#E3DFD5` | Recessed wells: track fills, skeleton loaders, disabled inputs. |
-| `--ink` | `40 6% 10%` | `#1C1B19` | Primary text **and** the system's structural border colour. Iron & Chalk draws borders, not shadows. |
-| `--ink-soft` | `44 5% 40%` | `#6B6860` | Secondary text — descriptions, meta lines. |
-| `--ink-faint` | `43 8% 57%` | `#9B9689` | Tertiary text, placeholders, disabled labels, "last session" references. |
-| `--border-subtle` | `39 14% 75%` | `#C9C3B8` | Knurl-grey hairline — dividers, ghost borders, muted badges. |
-| `--primary` (iron) | `5 59% 44%` | `#B23A2E` | Iron-oxide. Every primary action, every "this is what you're doing right now" state (active set border, primary CTA). Spend it on one thing per screen. |
-| `--accent` (brass) | `36 46% 45%` | `#A67C3D` | Brass. Celebratory and advisory — PR badges, coach notes, the second-most-important thing on the screen. Never used for a primary CTA. |
-| `--success` | `103 21% 39%` | `#5B7A4F` | Verified, synced, on-track. An olive, not a mint — stays inside the warm palette. |
-| `--warning` | `42 59% 44%` | `#B08A2E` | Needs attention, not yet urgent — "check this," "2 credits left." |
-| `--destructive` (rust) | `6 64% 34%` | `#8C2A1F` | A darker, "oxidised" iron — errors, deletion, "out of credits," "inactive 9 days." Distinct enough from `--primary` to never be confused with a normal action. |
-| `--ring` | `5 59% 44%` | `#B23A2E` | Focus ring — always iron, always visible, never suppressed. |
+| `--background` | `197 40% 12%` | `#12232A` | Petrol-black ground. |
+| `--surface` | `196 38% 17%` | `#1B333C` | Raised card / panel — the default card surface. |
+| `--surface-raised` | `197 35% 20%` | `#223C46` | More elevated surfaces — active/hero cards, sheets. |
+| `--surface-sunken` | `196 39% 10%` | `#0F1D22` | Recessed wells: track fills, skeleton loaders, photo placeholders. |
+| `--ink` | `42 39% 88%` | `#EDE6D6` | Primary text — warm ivory, never pure white. |
+| `--ink-soft` | `194 13% 63%` | `#93A6AC` | Secondary text — descriptions, meta lines. |
+| `--ink-faint` | `194 12% 44%` | `#62767C` | Tertiary text, placeholders, "last session" references. |
+| `--border-subtle` | `198 31% 25%` | `#2C4753` | The default hairline. Structure now comes from this plus `shadow-card`, not from thick borders. |
+| `--primary` (brass gold) | `40 63% 55%` | `#D4A544` | Every primary action, every "this is what you're doing right now" state — active set border/glow, primary CTA, focus ring. Spend it on one thing per screen. |
+| `--accent` (coral) | `13 73% 56%` | `#E1613F` | Alerts and celebration — PR badges, "skip rest," coach notes. Never a primary CTA. |
+| `--success` | `133 29% 56%` | `#6FB07D` | Verified, synced, on-track. |
+| `--warning` | `45 76% 57%` | `#E4B93D` | Needs attention, not yet urgent — distinct enough from `--primary` gold to stay legible when they sit side by side. |
+| `--destructive` | `6 63% 46%` | `#C0392B` | Errors, deletion, "out of credits," "inactive 9 days" — a true red, kept apart from the coral accent so alert and celebration never look the same. |
+| `--ring` | `40 63% 55%` | `#D4A544` | Focus ring — always gold, always visible, never suppressed. |
 
-Every semantic colour also ships a `-foreground` (text-on-fill) and a `-soft` (10–15% tint for badges/banners) variant. See `tailwind.config.ts` → `theme.extend.colors`.
-
-**Why no near-black + single accent:** that palette is the default the brief explicitly ruled out, and it's also the wrong tool for a screen used sweaty and one-handed — a warm, higher-contrast ground with a heavy ink border reads faster in bad light than white text floating on black.
+Every semantic colour also ships a `-foreground` (text-on-fill) and a `-soft` (dark, low-opacity tint for badges/banners) variant. See `tailwind.config.ts` → `theme.extend.colors`.
 
 ---
 
 ## 3. Typography
 
-Two families, doing two different jobs. Never introduce a third.
+Two families now do the two jobs that three used to:
 
-- **Display — "Big Shoulders Display."** Condensed, industrial, stencil-adjacent. Used for every number that matters (weight, reps, RPE, rest timer, screen titles) and nothing else. It's the typeface equivalent of the numbers stencilled on a plate.
-- **Body — "Inter."** Everything you read in sentences: descriptions, coach notes, empty-state copy, nav labels' sibling text.
-- **Mono — "JetBrains Mono"** is loaded and reserved for a future tabular-data view (e.g. exported logs); not used on any of the seven v1 screens, where Big Shoulders Display's `tabular-nums` handles all digit alignment instead.
+- **Space Grotesk** — every heading, every label, every button, all body copy. One face carries the whole UI, at different weights (400–700).
+- **Space Mono** — every digit that matters: weight, reps, RPE, rest timer, kcal, bodyweight, lift numbers. Applied via the `font-mono` utility class specifically to numeric spans, never to headline text. This is the system's one piece of typographic character — numbers read as data, not as prose.
 
 | Token | Size / line-height | Weight / tracking | Use |
 |---|---|---|---|
-| `display-xl` | 56 / 1.0 | 900 / ‑0.01em | Reserved for hero numeric moments (e.g. a stat we want to dominate a screen). |
-| `display-lg` | 40 / 1.05 | 900 / ‑0.01em | Screen-level hero numbers — bodyweight, lift trend headline. |
-| `display-md` | 28 / 1.1 | 800 / 0 | Card-level numbers — meal kcal total, per-macro grams. |
-| `display-sm` | 22 / 1.15 | 800 / 0 | Set-row numbers — weight, reps, RPE, rest countdown. |
+| `display-xl` | 56 / 1.0 | 900 / ‑0.01em | Reserved for a hero numeric moment. |
+| `display-lg` | 40 / 1.05 | 900 / ‑0.01em | Screen-level headlines (page titles). |
+| `display-md` | 28 / 1.1 | 800 / 0 | Card-level numbers — meal kcal total. |
+| `display-sm` | 22 / 1.15 | 800 / 0 | Set-row numbers — weight, reps, RPE, rest countdown (`font-mono`). |
 | `heading-lg` | 24 / 1.2 | 800 / 0 | Sheet/modal titles, week labels. |
 | `heading-md` | 18 / 1.3 | 700 / 0 | Card titles, client names. |
 | `heading-sm` | 15 / 1.3 | 700 / 0.01em | Day/exercise names, list-row titles. |
 | `body-lg` | 16 / 1.5 | 500 / 0 | Primary reading copy. |
 | `body-md` | 14 / 1.5 | 400 / 0 | Secondary copy, descriptions. |
-| `body-sm` | 13 / 1.45 | 500 / 0 | Captions, references ("Last 97.5×5"), timestamps. |
-| `label` | 11 / 1.2 | 700 / 0.06em, uppercase | Field labels ("WEIGHT", "REPS"), badges. |
-| `eyebrow` | 12 / 1.2 | 700 / 0.08em, uppercase | Section headers ("COACH ACTIVITY", "MEASUREMENTS"). |
+| `body-sm` | 13 / 1.45 | 500 / 0 | Captions, references, timestamps. |
+| `label` | 11 / 1.2 | 700 / 0.06em | Field labels, small tags — the only place uppercase survives. |
+| `eyebrow` | 12 / 1.2 | 700 / 0.08em, uppercase | Section headers ("Coach activity," "Measurements"). |
 
-**Rule:** headline chrome (top bar titles, primary buttons, nav labels, section eyebrows) is uppercase and tracked. Sentences are not — body copy is always sentence case, matching the copy voice (see §7). Uppercase is structural seasoning, not a paragraph style.
+**Rule — a direct fix for the previous version's biggest complaint:** headline text, button labels, and nav items are **sentence case**, not shouting caps. Uppercase is now reserved for the smallest structural markers only (`label`/`eyebrow` tokens — field labels, section eyebrows, tag pills), never for a page title or a CTA. A page should read as designed, not announced.
 
 ---
 
-## 4. Spacing, radius, borders
+## 4. Spacing, radius, borders, elevation
 
-- **Spacing** follows Tailwind's default 4px scale. No arbitrary pixel values in components — if a gap doesn't exist yet, extend the scale in `tailwind.config.ts`, don't hardcode it.
-- **Radius** is a 4-step semantic scale, never a bare number in a component:
-  - `radius-sm` (6px) — inputs, chips, small controls.
-  - `radius-md` (10px) — cards, buttons, the default.
-  - `radius-lg` (14px) — sheets, modals.
-  - `radius-xl` (20px) — reserved for full-screen surfaces.
-- **Borders carry the structure that shadows would carry in a softer system.** Default border is 2px solid `--ink`; the active/focused state of a card steps up to 3px `--primary`. Subtle dividers use 1–2px `--border-subtle`. A card almost never relies on `box-shadow` for hierarchy — `shadow-plate` and `shadow-card` exist only for the faint separation a white card needs off the chalk ground, not for depth theatre.
+- **Spacing** follows Tailwind's default 4px scale. No arbitrary pixel values in components.
+- **Radius** is a 4-step semantic scale, softer than a typical admin panel:
+  - `radius-sm` (8px) — inputs, chips.
+  - `radius-md` (16px) — cards, most buttons.
+  - `radius-lg` (22px) — sheets, modals.
+  - `radius-xl` (28px) — reserved for full-screen surfaces.
+  - Buttons and pills round all the way to `rounded-full`.
+- **Structure comes from elevation, not weight.** The default card border is a 1px hairline (`border-border-subtle`) plus `shadow-card` — a soft, dark, real drop shadow (`0 1px 3px rgb(0 0 0 / 0.22)`), not a heavy 2–3px outline. The one exception is the "right now" state — the active set card, the next-session hero — which gets a soft gold `shadow-glow` instead of a thicker border. That's the only place elevation gets loud.
+- **Glass is spent in exactly two places:** the top bar and the bottom nav (`.glass` utility — `backdrop-filter: blur(16px) saturate(140%)` over a translucent surface). Sheets and cards stay solid. One deliberate glass move reads as a decision; glass everywhere reads as a template.
 
 ---
 
 ## 5. Motion
 
-Motion is spent on three things and nowhere else: the plate glyph settling in, a PR badge announcing itself, and the rest timer's live countdown. Everything else (tab switches, accordion open/close, sheet presentation) uses the same restrained `fast`/`base` transition and stops there.
+Unchanged in spirit from the previous pass — motion is spent on the plate glyph settling in, a PR badge announcing itself, and the rest timer's live countdown, and stops there.
 
 | Token | Duration | Easing | Use |
 |---|---|---|---|
 | `fast` | 120ms | ease-out | Hover/press states, colour transitions. |
 | `base` | 200ms | ease-out | Accordion expand, sheet slide, tab indicator. |
-| `slow` / `settle` | 320ms | `cubic-bezier(0.16, 1, 0.3, 1)` | Plate glyph appearing, PR badge pop-in — a slight overshoot, like a plate dropping onto a bar and settling. |
+| `slow` / `settle` | 320ms | `cubic-bezier(0.16, 1, 0.3, 1)` | Plate glyph appearing, PR badge pop-in. |
 
-`prefers-reduced-motion: reduce` collapses every animation/transition to ~0ms globally (see `src/index.css`) — including the PR pop and plate settle. The rest timer's countdown is a text update, not an animation, so it's unaffected and keeps functioning.
+`prefers-reduced-motion: reduce` collapses every animation/transition to ~0ms globally. The rest timer's countdown is a text update, not an animation, so it's unaffected.
 
 ---
 
 ## 6. The signature element
 
-**The plate glyph.** Weight is never shown as a bare number alone — it's shown next to a small rendering of the plates that would actually be loaded on the bar to hit that number (greedy-decomposed from standard 25/20/15/10/5/2.5/1.25kg plates, one side, 20kg bar assumed). Biggest plate against the collar, each smaller plate overlapping in front, coloured by weight class (≥20kg ink, ≥5kg iron, <5kg brass). It's `src/components/pt/PlateGlyph.tsx`.
-
-This is the one deliberate risk the brief asked for, and it's spent in the one place that earns it: the live set logger, where a trainer or client should be able to glance at a set and read "that's a big number" or "that's a small number" without doing arithmetic, one-handed, mid-rest.
+**The plate glyph**, unchanged in concept from v1: weight is never shown as a bare number alone — it's shown next to a rendering of the plates that would actually be loaded on the bar (greedy-decomposed from standard 25/20/15/10/5/2.5/1.25kg plates, one side, 20kg bar assumed). In the dark palette it reads as overlapping discs — gold for the plates closest to the collar, ivory-steel for the mid sizes, coral for the small fractional plates — like looking at the end of a loaded bar under gym lighting. `src/components/pt/PlateGlyph.tsx`.
 
 ---
 
 ## 7. Copy voice
 
-- Active voice, sentence case, plain verbs. "Log a meal," not "Meal logging."
-- An action keeps its exact name through a whole flow (the CTA that says "Log set 3" is the same verb used in the toast/confirmation, not "Submit" or "Save").
-- Empty states are an invitation, not a dead end — every one pairs a plain-language explanation with a single next action ("No meals logged yet" → **Snap a meal**).
-- Errors and low-confidence states say what happened and what to do, without apologising or faking precision. A low-confidence food item says "Unsure" with a visible, honest badge — never a smoothed-over guess presented as fact.
+Unchanged: active voice, sentence case, plain verbs. An action keeps its exact name through a whole flow. Empty states pair a plain-language explanation with a single next action. Low-confidence states say "Unsure," visibly, rather than smoothing a guess into a fact.
 
 ---
 
 ## 8. Bilingual / RTL
 
-Every layout is built on Tailwind logical properties (`ms-`, `me-`, `ps-`, `pe-`, `text-start`, `text-end`, `rtl:rotate-180` on directional icons) instead of hardcoded `left`/`right`. No component assumes English word order or line length — button labels, badges, and card rows all use `flex-wrap`/`min-w-0`+truncate-avoidance patterns proven out during the build (see engineering note below). Flip `<html dir="rtl">` and the system should hold; Arabic labels will run longer than English in several spots (nav labels, badges), which is why label components wrap rather than clip by default.
+Every layout is built on Tailwind logical properties (`ms-`, `me-`, `ps-`, `pe-`, `text-start`, `text-end`, `rtl:rotate-180` on directional icons) instead of hardcoded `left`/`right`. No component assumes English word order or line length.
 
 ---
 
-## 9. Component base
+## 9. Why this replaced Iron & Chalk
 
-shadcn/ui primitives (Button, Card, Badge, Input, Progress, Tabs, Switch, Avatar, Sheet, Separator, Skeleton), restyled at the token level — 2–3px `--ink` borders, uppercase-tracked primary buttons, no default shadcn rounded-full-everything softness. Full state matrix lives at `/components` in the running prototype and is captured in `/screenshots/components.png`.
+The first build (light chalk ground, iron-oxide red, thick 2–3px structural borders, condensed all-caps display type) was reviewed against a real screen and read as **outdated**: too heavy/boxy, typography too shouty, and — the direct ask — closer to the sleek dark aesthetic of current fitness and SaaS apps than to what shipped. That's a legitimate call for the person who owns the product, and it's a bigger change than a polish pass, so it's recorded here rather than silently overwritten.
+
+The response wasn't to build the generic version of "dark modern app" (near-black, one neon accent, glassmorphism everywhere) — that's exactly the AI-default look the original brief warned against, and defaulting to it here would trade one cliché for another. Instead this rebuild promotes **Scoreboard**, the direction from the original three-way comparison that was already built for a dark, contemporary reading — Gulf gym floodlights and brass gold, not Silicon Valley near-black — and gives it the full token/component/screen treatment Iron & Chalk had.
+
+What actually changed, concretely:
+- Palette: chalk-light → petrol-dark, iron-red → brass-gold, brass → coral.
+- Type: Big Shoulders Display (condensed industrial caps) + Inter → Space Grotesk (headings/body) + Space Mono (digits only).
+- Structure: thick 2–3px `border-ink` everywhere → 1px hairline + soft shadow, with a gold glow reserved for the one "active" state per screen.
+- Case: uppercase-tracked titles, buttons, and nav → sentence case everywhere except small field labels and eyebrows.
+- Radius: 6–20px scale → 8–28px scale, buttons fully rounded.
+
+What didn't change: the screens' structure and content, the mock data, the plate-glyph signature element's concept, the copy voice, the RTL approach, and the component inventory. This was a surface-language rebuild on validated content, not a restart.
+
+---
+
+## 10. Component base
+
+shadcn/ui primitives (Button, Card, Badge, Input, Progress, Tabs, Switch, Avatar, Sheet, Separator, Skeleton), restyled at the token level. Full state matrix lives at `/components` in the running prototype and is captured in `/screenshots/components.png`.
 
 Focus PT-specific primitives live in `src/components/pt/`: `PlateGlyph`, `PRBadge`, `RestTimer`, `SetRow`, `NumberStepper`, `ConfidenceTag`, `PortionAdjuster`, `CoachNote`, `OfflineBanner`, `MealPhoto`, `TrendChart`.
 
 ---
 
-## 10. Engineering note for the Lovable rebuild
+## 11. Engineering notes for the Lovable rebuild
 
-`src/lib/utils.ts`'s `cn()` helper extends `tailwind-merge`'s `font-size` class group with this system's semantic type tokens (`text-body-sm`, `text-heading-md`, etc.). Without that extension, tailwind-merge treats `text-body-sm` and a sibling `text-ink-soft` as the same "text colour" group and silently drops one of them — this cost real screen time to find (it was making avatar initials and several badges invisible) and will resurface in Lovable if the same custom `fontSize` scale is ported into `tailwind.config` without the matching `cn()` fix. Port both together.
+- **Routing:** the prototype uses `HashRouter`, not `BrowserRouter`, so it survives static hosting (GitHub Pages, the Artifact preview host) without server-side rewrites. Lovable's own hosting may not need this — check before porting the routing choice over, since `BrowserRouter` is the more standard default when a real server is involved.
+- **`cn()` / tailwind-merge:** `src/lib/utils.ts` extends `tailwind-merge`'s `font-size` class group with this system's semantic type tokens (`text-body-sm`, `text-heading-md`, etc.). Without that extension, tailwind-merge treats a token like `text-body-sm` and a sibling `text-ink-soft` as the same "text colour" group and silently drops one of them — this cost real time to find in the first build (it was making avatar initials and several badges invisible) and will resurface in Lovable if the same custom `fontSize` scale is ported into `tailwind.config` without the matching `cn()` fix. Port both together.
 
 ---
 
