@@ -1,9 +1,10 @@
 import type { Program } from './types'
 
-export const activeProgram: Program = {
+export const programs: Program[] = [
+  {
   id: 'prog-1',
   name: 'Strength Base — 8 Week Block',
-  client: 'Yusuf Almannai',
+  clientId: 'c-yusuf',
   weeks: [
     {
       id: 'w1',
@@ -56,7 +57,36 @@ export const activeProgram: Program = {
       ],
     },
   ],
-}
+  },
+  {
+    id: 'prog-2',
+    name: 'Fat Loss Circuit — 6 Week Block',
+    clientId: 'c-layla',
+    weeks: [
+      {
+        id: 'p2w1',
+        label: 'Week 1',
+        days: [
+          {
+            id: 'p2w1d1',
+            name: 'Day 1 — Full Body',
+            exercises: [
+              { id: 'p2e1', name: 'Barbell Back Squat', sets: 3, reps: '10', rpe: '7', restSeconds: 90 },
+              { id: 'p2e2', name: 'Cable Row', sets: 3, reps: '12', rpe: '7', restSeconds: 75 },
+              { id: 'p2e3', name: 'Dumbbell Shoulder Press', sets: 3, reps: '10', rpe: '7', restSeconds: 75 },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'prog-3',
+    name: 'New program',
+    clientId: null,
+    weeks: [],
+  },
+]
 
 export const exerciseLibrary = [
   'Barbell Back Squat',

@@ -60,7 +60,7 @@ export interface ProgramWeek {
 export interface Program {
   id: string
   name: string
-  client: string
+  clientId: string | null
   weeks: ProgramWeek[]
 }
 

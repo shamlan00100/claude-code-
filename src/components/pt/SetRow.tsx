@@ -33,22 +33,33 @@ export function SetRow({
         </div>
 
         <div className="mb-4">
-          <p className="mb-1.5 text-label uppercase tracking-[0.06em] text-ink-faint">Weight (kg)</p>
-          <div className="flex items-center gap-3">
-            <NumberStepper
-              value={set.weightKg ?? 0}
-              step={2.5}
-              size="lg"
-              onChange={(v) => onChangeActive?.({ weightKg: v })}
-            />
-            <PlateGlyph weightKg={set.weightKg} className="ms-1" />
+          <div className="mb-1.5 flex items-center justify-between">
+            <p className="text-label uppercase tracking-[0.06em] text-ink-faint">Weight (kg)</p>
+            <p className="text-body-sm text-ink-faint">Tap the number to type it</p>
+          </div>
+          <NumberStepper
+            value={set.weightKg ?? 0}
+            step={2.5}
+            size="lg"
+            label="weight in kilograms"
+            onChange={(v) => onChangeActive?.({ weightKg: v })}
+          />
+          <div className="relative mt-3 flex h-[60px] items-center justify-end overflow-hidden rounded-sm bg-surface-sunken/60 px-4">
+            <div className="absolute inset-y-1/2 start-0 end-16 h-1.5 -translate-y-1/2 rounded-full bg-gradient-to-r from-transparent to-ink-faint/60" aria-hidden />
+            <PlateGlyph weightKg={set.weightKg} size="lg" className="relative" />
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-3">
           <div>
             <p className="mb-1.5 text-label uppercase tracking-[0.06em] text-ink-faint">Reps</p>
-            <NumberStepper value={set.reps ?? 0} step={1} min={0} onChange={(v) => onChangeActive?.({ reps: v })} />
+            <NumberStepper
+              value={set.reps ?? 0}
+              step={1}
+              min={0}
+              label="reps"
+              onChange={(v) => onChangeActive?.({ reps: v })}
+            />
           </div>
           <div>
             <p className="mb-1.5 text-label uppercase tracking-[0.06em] text-ink-faint">RPE</p>
@@ -57,6 +68,7 @@ export function SetRow({
               step={0.5}
               min={0}
               display={(set.rpe ?? 0).toString()}
+              label="RPE"
               onChange={(v) => onChangeActive?.({ rpe: v })}
             />
           </div>

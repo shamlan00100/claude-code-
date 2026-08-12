@@ -1,8 +1,9 @@
 import { ArrowDown, ArrowUp, Plus } from 'lucide-react'
 import { TopBar } from '@/components/layout/TopBar'
 import { Button } from '@/components/ui/button'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { TrendChart } from '@/components/pt/TrendChart'
-import { bodyweightTrend, liftTrend, measurements, progressPhotos } from '@/mock'
+import { bodyweightTrend, liftTrend, nutritionTrend, measurements, progressPhotos } from '@/mock'
 
 export function Progress() {
   return (
@@ -18,6 +19,25 @@ export function Progress() {
         <section className="rounded-md border border-border-subtle bg-surface p-4 shadow-card">
           <p className="mb-1 text-eyebrow uppercase text-ink-soft">{liftTrend.exercise}</p>
           <TrendChart points={liftTrend.points.map((p) => ({ date: p.date, value: p.kg }))} unit="kg" accent="accent" />
+        </section>
+
+        <section className="rounded-md border border-border-subtle bg-surface p-4 shadow-card">
+          <p className="text-eyebrow uppercase text-ink-soft">Nutrition</p>
+          <p className="mb-2 text-body-sm text-ink-faint">Weekly average, from logged meal photos</p>
+          <Tabs defaultValue="protein">
+            <TabsList>
+              <TabsTrigger value="protein">Protein</TabsTrigger>
+              <TabsTrigger value="carbs">Carbs</TabsTrigger>
+            </TabsList>
+            <TabsContent value="protein">
+              <TrendChart points={nutritionTrend.protein.map((p) => ({ date: p.date, value: p.g }))} unit="g" accent="accent" />
+              <p className="mt-2 text-body-sm text-ink-faint">Target {nutritionTrend.target.proteinG}g/day</p>
+            </TabsContent>
+            <TabsContent value="carbs">
+              <TrendChart points={nutritionTrend.carbs.map((p) => ({ date: p.date, value: p.g }))} unit="g" accent="primary" />
+              <p className="mt-2 text-body-sm text-ink-faint">Target {nutritionTrend.target.carbsG}g/day</p>
+            </TabsContent>
+          </Tabs>
         </section>
 
         <section>
