@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ---- Iron & Chalk — semantic colour tokens (H S% L%, consumed via hsl(var(--x))) ---- */
+    --background: 42 22% 91%;       /* chalk-dust ground */
+    --surface: 0 0% 100%;           /* raised card */
+    --surface-sunken: 43 20% 86%;   /* recessed wells, track fills, skeletons */
+    --surface-raised: 0 0% 100%;
+
+    --ink: 40 6% 10%;               /* primary text + structural borders */
+    --ink-soft: 44 5% 40%;          /* secondary text */
+    --ink-faint: 43 8% 57%;         /* tertiary / placeholder text */
+
+    --border: 40 6% 10%;            /* default structural border (heavy, deliberate) */
+    --border-subtle: 39 14% 75%;    /* knurl-grey hairline */
+    --border-strong: 40 6% 10%;
+
+    --primary: 5 59% 44%;           /* iron-oxide — primary actions, active state */
+    --primary-foreground: 0 0% 100%;
+    --primary-soft: 10 56% 89%;
+
+    --accent: 36 46% 45%;           /* brass — PR / celebratory / secondary emphasis */
+    --accent-foreground: 0 0% 100%;
+    --accent-soft: 37 53% 87%;
+
+    --success: 103 21% 39%;         /* verified / synced / on-track */
+    --success-foreground: 0 0% 100%;
+    --success-soft: 90 24% 87%;
+
+    --warning: 42 59% 44%;          /* needs attention, not yet urgent */
+    --warning-foreground: 40 6% 10%;
+    --warning-soft: 42 65% 85%;
+
+    --destructive: 6 64% 34%;       /* rusted iron — delete, error, missed */
+    --destructive-foreground: 0 0% 100%;
+    --destructive-soft: 12 42% 86%;
+
+    --ring: 5 59% 44%;
+
+    /* ---- Radius scale ---- */
+    --radius-sm: 0.375rem;   /* 6px  — inputs, chips */
+    --radius-md: 0.625rem;   /* 10px — cards, buttons */
+    --radius-lg: 0.875rem;   /* 14px — sheets, modals */
+    --radius-xl: 1.25rem;    /* 20px — full-screen surfaces */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border-subtle;
+  }
+  html, body, #root {
+    height: 100%;
+  }
+  html {
+    color-scheme: light;
+  }
+  body {
+    @apply bg-background text-ink font-sans antialiased;
+    font-feature-settings: 'tnum' 1, 'cv11' 1;
+  }
+  ::selection {
+    @apply bg-primary/20;
+  }
+
+  /* Tabular numerals everywhere a number can change under a set — weight, reps,
+     RPE, timers — so digits never reflow the layout while a client is mid-set. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Mobile prototype stage — frames the 390×844 canvas when running standalone
+   (not part of the design system itself). */
+.device-frame {
+  width: 390px;
+  height: 844px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
