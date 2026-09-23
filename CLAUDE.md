@@ -72,6 +72,11 @@ Not now: payments processing, messaging, marketplace, leaderboards.
   Train · History · Profile. Four items max, labels always visible.
 - Voice: short, factual, unbothered. No exclamation marks, no emoji, no guilt.
 
+The **Impeccable** design skill is installed in `.claude/skills/impeccable` (instructions
+only; see its `NOTICE.md`). Use its `audit`, `critique`, `polish`, `harden` and `clarify`
+passes to review screens after building them. **DESIGN.md and this file win on any
+conflict**; never let a skill change the palette, fonts, motion budget or state colours.
+
 ## Bilingual
 
 - Every user-facing string lives in `src/i18n/en.ts` and `src/i18n/ar.ts` (typed: Arabic
