@@ -1,0 +1,214 @@
+/* Fonts are self-hosted: no third-party requests, and they work offline. */
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-sans/600.css';
+@import '@fontsource/ibm-plex-sans-arabic/400.css';
+@import '@fontsource/ibm-plex-sans-arabic/500.css';
+@import '@fontsource/ibm-plex-sans-arabic/600.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+@import '@fontsource/ibm-plex-mono/600.css';
+@import 'tailwindcss';
+
+/* Design tokens: chalk, iron, rock, water. Full rules live in DESIGN.md. */
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --font-sans: 'IBM Plex Sans', 'IBM Plex Sans Arabic', sans-serif;
+  --font-arabic: 'IBM Plex Sans Arabic', 'IBM Plex Sans', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.3125rem;
+  --radius-lg: 0.75rem;
+  --color-base: var(--surface-base);
+  --color-raised: var(--surface-raised);
+  --color-sunken: var(--surface-sunken);
+  --color-hairline: var(--border-hairline);
+  --color-iron: var(--text-primary);
+  --color-rock: var(--text-secondary);
+  --color-tertiary: var(--text-tertiary);
+  --color-water: var(--water);
+  --color-water-quiet: var(--water-quiet);
+  --color-oxide: var(--oxide);
+  --color-chalk: var(--surface-raised);
+}
+
+:root {
+  --surface-base: #edebe5;
+  --surface-raised: #f7f6f2;
+  --surface-sunken: #e2e0d9;
+  --border-hairline: #d2cfc7;
+  --text-primary: #16191b;
+  --text-secondary: #5c5f62;
+  --text-tertiary: #797c7f;
+  --water: #14707c;
+  --water-quiet: #d6e7e8;
+  --oxide: #a32e22;
+  --sheet-shadow: 0 -12px 40px rgb(22 25 27 / 0.14);
+  color-scheme: light;
+}
+
+/* Dark is not an inversion: the accent lifts and contrast drops slightly
+   because gyms are badly lit. Applied by explicit choice or by the system. */
+:root.dark {
+  --surface-base: #121517;
+  --surface-raised: #1b1f22;
+  --surface-sunken: #0c0e10;
+  --border-hairline: #2c3134;
+  --text-primary: #eceae4;
+  --text-secondary: #9ba0a3;
+  --text-tertiary: #6e7376;
+  --water: #4fb6c0;
+  --water-quiet: #123a3e;
+  --oxide: #e0705f;
+  --sheet-shadow: 0 -12px 40px rgb(12 14 16 / 0.4);
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --surface-base: #121517;
+    --surface-raised: #1b1f22;
+    --surface-sunken: #0c0e10;
+    --border-hairline: #2c3134;
+    --text-primary: #eceae4;
+    --text-secondary: #9ba0a3;
+    --text-tertiary: #6e7376;
+    --water: #4fb6c0;
+    --water-quiet: #123a3e;
+    --oxide: #e0705f;
+    --sheet-shadow: 0 -12px 40px rgb(12 14 16 / 0.4);
+    color-scheme: dark;
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-hairline);
+    font-synthesis: none;
+  }
+
+  html,
+  body {
+    background-color: var(--color-base);
+  }
+
+  body {
+    color: var(--color-iron);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+    min-width: 20rem;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :lang(ar) {
+    font-family: var(--font-arabic);
+    letter-spacing: 0;
+    line-height: 1.725;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-water);
+    outline-offset: 2px;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@utility numeric {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+@utility type-display {
+  font-size: 2.5rem;
+  font-weight: 500;
+  line-height: 2.75rem;
+  letter-spacing: -0.025em;
+}
+
+@utility type-title {
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: 2.125rem;
+  letter-spacing: -0.02em;
+}
+
+@utility type-heading {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.625rem;
+  letter-spacing: -0.01em;
+}
+
+@utility type-body {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+}
+
+@utility type-detail {
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+}
+
+@utility type-micro {
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1rem;
+}
+
+[lang='ar'] .type-display {
+  line-height: 3.1625rem;
+  letter-spacing: 0;
+}
+[lang='ar'] .type-title {
+  line-height: 2.44375rem;
+  letter-spacing: 0;
+}
+[lang='ar'] .type-heading {
+  line-height: 1.86875rem;
+  letter-spacing: 0;
+}
+[lang='ar'] .type-body {
+  line-height: 1.725rem;
+}
+[lang='ar'] .type-detail {
+  line-height: 1.4375rem;
+}
+[lang='ar'] .type-micro {
+  line-height: 1.15rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
