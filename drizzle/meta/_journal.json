@@ -8,6 +8,20 @@
       "when": 1790193438310,
       "tag": "0000_auth",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790236266427,
+      "tag": "0001_domain",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790236273637,
+      "tag": "0002_no_double_booking",
+      "breakpoints": true
     }
   ]
 }

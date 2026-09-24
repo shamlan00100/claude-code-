@@ -4,6 +4,7 @@ import { tanstackStartCookies } from 'better-auth/tanstack-start'
 
 import { db } from '#/db'
 import * as schema from '#/db/schema'
+import { trainers } from '#/db/schema'
 
 // Railway sets RAILWAY_PUBLIC_DOMAIN per environment, so PR previews get the
 // right callback URL without extra configuration.
@@ -35,6 +36,21 @@ export const auth = betterAuth({
         type: 'string',
         required: false,
         defaultValue: 'en',
+      },
+    },
+  },
+  databaseHooks: {
+    user: {
+      create: {
+        // Every trainer account gets its business settings row.
+        after: async (created) => {
+          if (created.role === 'trainer') {
+            await db
+              .insert(trainers)
+              .values({ userId: created.id })
+              .onConflictDoNothing()
+          }
+        },
       },
     },
   },

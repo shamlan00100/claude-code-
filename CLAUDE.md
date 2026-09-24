@@ -90,13 +90,17 @@ conflict**; never let a skill change the palette, fonts, motion budget or state 
 
 ```bash
 npm run dev          # http://localhost:3000
-npm run check        # typecheck + lint + production build: run before every push
+npm run check        # typecheck + lint + tests + production build: run before every push
+npm test             # database tests against a throwaway focuspt_test database
 npm run db:generate  # after changing src/db/*.ts, creates a migration in drizzle/
 npm run db:migrate   # applies migrations
 npm run db:seed      # dev accounts (requires ALLOW_SEED=true)
 ```
 
 - Never edit a migration that has been pushed; add a new one.
+- Session status changes go through `src/server/session-transitions.ts`; program
+  assignment through `src/server/programs.ts`; ownership checks through
+  `src/server/access.ts`. Add a test in `tests/` for every new rule.
 - **Never seed or show mock data in the product.** Empty states are real empty states.
   The only seed is the fixed dev accounts in `scripts/seed.ts`, for dev and PR previews.
 - Dev accounts: `trainer@dev.focuspt.test` / `client@dev.focuspt.test`, password in
