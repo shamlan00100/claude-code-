@@ -202,7 +202,7 @@ describe('rescheduling', () => {
   it('refuses a new time that clashes with another booking', async () => {
     const original = await book('2026-10-04T06:00:00Z')
     await book('2026-10-05T17:00:00Z')
-    const clash = await violation(() =>
+    await expect(
       db.transaction((tx) =>
         rescheduleSession(tx, {
           sessionId: original.id,
@@ -210,8 +210,7 @@ describe('rescheduling', () => {
           actor: client,
         }),
       ),
-    )
-    expect(clash).toBe('sessions_no_trainer_overlap')
+    ).rejects.toThrow('trainer_busy')
     // Nothing changed: the transaction rolled back.
     const old = await db.query.sessions.findFirst({
       where: eq(sessions.id, original.id),

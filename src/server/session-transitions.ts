@@ -5,7 +5,7 @@ import { eq, sql } from 'drizzle-orm'
 import { sessionEvents, sessions } from '#/db/schema'
 
 import type { Tx } from './db-types'
-import { RuleError } from './errors'
+import { RuleError, asRuleError } from './errors'
 
 export type SessionStatus = (typeof sessions.$inferSelect)['status']
 export type RestReason = NonNullable<
@@ -289,6 +289,10 @@ export async function rescheduleSession(
   ])
 
   // Surface an overlap now, as a rule error, rather than at commit.
-  await tx.execute(sql`set constraints sessions_no_trainer_overlap immediate`)
+  try {
+    await tx.execute(sql`set constraints sessions_no_trainer_overlap immediate`)
+  } catch (error) {
+    throw asRuleError(error)
+  }
   return replacement
 }

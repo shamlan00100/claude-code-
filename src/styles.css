@@ -212,3 +212,16 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Bottom sheets: pinned to the bottom edge, opacity-only motion. */
+dialog.sheet {
+  max-height: 100dvh;
+}
+dialog.sheet[open] {
+  animation: sheet-in 120ms ease-out;
+}
+@keyframes sheet-in {
+  from {
+    opacity: 0;
+  }
+}

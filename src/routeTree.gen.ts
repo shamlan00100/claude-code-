@@ -13,13 +13,14 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteRouteImport } from './routes/_app/route'
 import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as SignUpRouteImport } from './routes/sign-up'
-import { Route as AppClientsRouteImport } from './routes/_app/clients'
 import { Route as AppHistoryRouteImport } from './routes/_app/history'
 import { Route as AppProfileRouteImport } from './routes/_app/profile'
 import { Route as AppProgramsRouteImport } from './routes/_app/programs'
 import { Route as AppTodayRouteImport } from './routes/_app/today'
 import { Route as AppTrainRouteImport } from './routes/_app/train'
 import { Route as ApiHealthRouteImport } from './routes/api/health'
+import { Route as AppClientsIndexRouteImport } from './routes/_app/clients/index'
+import { Route as AppClientsClientIdRouteImport } from './routes/_app/clients/$clientId'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const IndexRoute = IndexRouteImport.update({
@@ -40,11 +41,6 @@ const SignUpRoute = SignUpRouteImport.update({
   id: '/sign-up',
   path: '/sign-up',
   getParentRoute: () => rootRouteImport,
-} as any)
-const AppClientsRoute = AppClientsRouteImport.update({
-  id: '/clients',
-  path: '/clients',
-  getParentRoute: () => AppRouteRoute,
 } as any)
 const AppHistoryRoute = AppHistoryRouteImport.update({
   id: '/history',
@@ -76,6 +72,16 @@ const ApiHealthRoute = ApiHealthRouteImport.update({
   path: '/api/health',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppClientsIndexRoute = AppClientsIndexRouteImport.update({
+  id: '/clients/',
+  path: '/clients/',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppClientsClientIdRoute = AppClientsClientIdRouteImport.update({
+  id: '/clients/$clientId',
+  path: '/clients/$clientId',
+  getParentRoute: () => AppRouteRoute,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -86,27 +92,29 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
-  '/clients': typeof AppClientsRoute
   '/history': typeof AppHistoryRoute
   '/profile': typeof AppProfileRoute
   '/programs': typeof AppProgramsRoute
   '/today': typeof AppTodayRoute
   '/train': typeof AppTrainRoute
   '/api/health': typeof ApiHealthRoute
+  '/clients/$clientId': typeof AppClientsClientIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/clients/': typeof AppClientsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
-  '/clients': typeof AppClientsRoute
   '/history': typeof AppHistoryRoute
   '/profile': typeof AppProfileRoute
   '/programs': typeof AppProgramsRoute
   '/today': typeof AppTodayRoute
   '/train': typeof AppTrainRoute
   '/api/health': typeof ApiHealthRoute
+  '/clients/$clientId': typeof AppClientsClientIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/clients': typeof AppClientsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -114,14 +122,15 @@ export interface FileRoutesById {
   '/_app': typeof AppRouteRouteWithChildren
   '/sign-in': typeof SignInRoute
   '/sign-up': typeof SignUpRoute
-  '/_app/clients': typeof AppClientsRoute
   '/_app/history': typeof AppHistoryRoute
   '/_app/profile': typeof AppProfileRoute
   '/_app/programs': typeof AppProgramsRoute
   '/_app/today': typeof AppTodayRoute
   '/_app/train': typeof AppTrainRoute
   '/api/health': typeof ApiHealthRoute
+  '/_app/clients/$clientId': typeof AppClientsClientIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/_app/clients/': typeof AppClientsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -129,41 +138,44 @@ export interface FileRouteTypes {
     | '/'
     | '/sign-in'
     | '/sign-up'
-    | '/clients'
     | '/history'
     | '/profile'
     | '/programs'
     | '/today'
     | '/train'
     | '/api/health'
+    | '/clients/$clientId'
     | '/api/auth/$'
+    | '/clients/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/sign-in'
     | '/sign-up'
-    | '/clients'
     | '/history'
     | '/profile'
     | '/programs'
     | '/today'
     | '/train'
     | '/api/health'
+    | '/clients/$clientId'
     | '/api/auth/$'
+    | '/clients'
   id:
     | '__root__'
     | '/'
     | '/_app'
     | '/sign-in'
     | '/sign-up'
-    | '/_app/clients'
     | '/_app/history'
     | '/_app/profile'
     | '/_app/programs'
     | '/_app/today'
     | '/_app/train'
     | '/api/health'
+    | '/_app/clients/$clientId'
     | '/api/auth/$'
+    | '/_app/clients/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -204,13 +216,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/sign-up'
       preLoaderRoute: typeof SignUpRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/_app/clients': {
-      id: '/_app/clients'
-      path: '/clients'
-      fullPath: '/clients'
-      preLoaderRoute: typeof AppClientsRouteImport
-      parentRoute: typeof AppRouteRoute
     }
     '/_app/history': {
       id: '/_app/history'
@@ -254,6 +259,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiHealthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_app/clients/': {
+      id: '/_app/clients/'
+      path: '/clients'
+      fullPath: '/clients/'
+      preLoaderRoute: typeof AppClientsIndexRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/clients/$clientId': {
+      id: '/_app/clients/$clientId'
+      path: '/clients/$clientId'
+      fullPath: '/clients/$clientId'
+      preLoaderRoute: typeof AppClientsClientIdRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -265,21 +284,23 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppRouteRouteChildren {
-  AppClientsRoute: typeof AppClientsRoute
   AppHistoryRoute: typeof AppHistoryRoute
   AppProfileRoute: typeof AppProfileRoute
   AppProgramsRoute: typeof AppProgramsRoute
   AppTodayRoute: typeof AppTodayRoute
   AppTrainRoute: typeof AppTrainRoute
+  AppClientsClientIdRoute: typeof AppClientsClientIdRoute
+  AppClientsIndexRoute: typeof AppClientsIndexRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
-  AppClientsRoute: AppClientsRoute,
   AppHistoryRoute: AppHistoryRoute,
   AppProfileRoute: AppProfileRoute,
   AppProgramsRoute: AppProgramsRoute,
   AppTodayRoute: AppTodayRoute,
   AppTrainRoute: AppTrainRoute,
+  AppClientsClientIdRoute: AppClientsClientIdRoute,
+  AppClientsIndexRoute: AppClientsIndexRoute,
 }
 
 const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(

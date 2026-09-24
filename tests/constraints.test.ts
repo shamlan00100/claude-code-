@@ -2,7 +2,6 @@ import { beforeEach, describe, expect, it } from 'vitest'
 
 import { db } from '#/db'
 import {
-  packageAllowances,
   packages,
   sessionExercises,
   sessions,
@@ -83,43 +82,35 @@ describe('database rules', () => {
     ).toBe('trainer_clients_open_unique')
   })
 
-  it('rejects empty package allowances and negative prices', async () => {
-    const [pack] = await db
-      .insert(packages)
-      .values({
-        trainerId,
-        clientId,
-        name: '10 sessions',
-        structure: 'session_pack',
-        startsOn: '2026-10-01',
-        sessionMinutes: 60,
-        cancellationHours: 24,
-        freeLateCancels: 1,
-        priceMinor: 250_000,
-        currency: 'BHD',
-      })
-      .returning()
+  it('requires sessions, at least one location and a sane price on packages', async () => {
+    const valid = {
+      trainerId,
+      clientId,
+      name: '10 sessions',
+      structure: 'session_pack' as const,
+      sessions: 10,
+      locations: ['gym' as const],
+      startsOn: '2026-10-01',
+      sessionMinutes: 60,
+      cancellationHours: 24,
+      freeLateCancels: 1,
+      priceMinor: 250_000,
+      currency: 'BHD',
+    }
+    await expect(db.insert(packages).values(valid)).resolves.toBeTruthy()
     expect(
       await violation(() =>
-        db
-          .insert(packageAllowances)
-          .values({ packageId: pack.id, location: 'gym', sessions: 0 }),
+        db.insert(packages).values({ ...valid, sessions: 0 }),
       ),
-    ).toBe('package_allowances_positive')
+    ).toBe('packages_sessions')
     expect(
       await violation(() =>
-        db.insert(packages).values({
-          trainerId,
-          clientId,
-          name: 'Bad',
-          structure: 'monthly',
-          startsOn: '2026-10-01',
-          sessionMinutes: 60,
-          cancellationHours: 24,
-          freeLateCancels: 1,
-          priceMinor: -1,
-          currency: 'BHD',
-        }),
+        db.insert(packages).values({ ...valid, locations: [] }),
+      ),
+    ).toBe('packages_locations')
+    expect(
+      await violation(() =>
+        db.insert(packages).values({ ...valid, priceMinor: -1 }),
       ),
     ).toBe('packages_price')
   })

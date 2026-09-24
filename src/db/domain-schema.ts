@@ -362,22 +362,32 @@ export const sessionLocation = pgEnum('session_location', [
 ])
 
 /** What a trainer sells. Editing a template never changes sold packages. */
-export const packageTemplates = pgTable('package_templates', {
-  id: id(),
-  trainerId: uuid('trainer_id')
-    .notNull()
-    .references(() => trainers.userId, { onDelete: 'restrict' }),
-  name: text('name').notNull(),
-  structure: packageStructure('structure').notNull(),
-  validityDays: smallint('validity_days'),
-  sessionMinutes: smallint('session_minutes').notNull(),
-  cancellationHours: smallint('cancellation_hours').notNull(),
-  freeLateCancels: smallint('free_late_cancels').notNull(),
-  priceMinor: integer('price_minor').notNull(),
-  currency: text('currency').default('BHD').notNull(),
-  archivedAt: timestamp('archived_at', { withTimezone: true }),
-  createdAt: createdAt(),
-})
+export const packageTemplates = pgTable(
+  'package_templates',
+  {
+    id: id(),
+    trainerId: uuid('trainer_id')
+      .notNull()
+      .references(() => trainers.userId, { onDelete: 'restrict' }),
+    name: text('name').notNull(),
+    structure: packageStructure('structure').notNull(),
+    sessions: smallint('sessions').notNull(),
+    locations: sessionLocation('locations').array().notNull(),
+    validityDays: smallint('validity_days'),
+    sessionMinutes: smallint('session_minutes').notNull(),
+    cancellationHours: smallint('cancellation_hours').notNull(),
+    freeLateCancels: smallint('free_late_cancels').notNull(),
+    priceMinor: integer('price_minor').notNull(),
+    currency: text('currency').default('BHD').notNull(),
+    archivedAt: timestamp('archived_at', { withTimezone: true }),
+    createdAt: createdAt(),
+  },
+  (t) => [
+    check('package_templates_sessions', sql`${t.sessions} > 0`),
+    check('package_templates_locations', sql`cardinality(${t.locations}) > 0`),
+    check('package_templates_price', sql`${t.priceMinor} >= 0`),
+  ],
+)
 
 export const packageStatus = pgEnum('package_status', [
   'active',
@@ -389,7 +399,9 @@ export const packageStatus = pgEnum('package_status', [
 
 /**
  * A package sold to a client. Every rule is copied from the template at sale.
- * The balance is never stored: it is counted from sessions.
+ * `sessions` is the total for a session pack, or the number per month for a
+ * monthly plan. Only PT sessions the trainer marks as attended use a credit;
+ * the balance is never stored, it is counted from sessions.
  */
 export const packages = pgTable(
   'packages',
@@ -406,6 +418,9 @@ export const packages = pgTable(
     }),
     name: text('name').notNull(),
     structure: packageStructure('structure').notNull(),
+    sessions: smallint('sessions').notNull(),
+    /** Where sessions on this package may happen: home only, gym only, or a mix. */
+    locations: sessionLocation('locations').array().notNull(),
     startsOn: date('starts_on').notNull(),
     expiresOn: date('expires_on'),
     sessionMinutes: smallint('session_minutes').notNull(),
@@ -421,6 +436,8 @@ export const packages = pgTable(
     index('packages_client_idx').on(t.clientId),
     index('packages_trainer_idx').on(t.trainerId),
     check('packages_price', sql`${t.priceMinor} >= 0`),
+    check('packages_sessions', sql`${t.sessions} > 0`),
+    check('packages_locations', sql`cardinality(${t.locations}) > 0`),
     check(
       'packages_dates',
       sql`${t.expiresOn} is null or ${t.expiresOn} >= ${t.startsOn}`,
@@ -429,40 +446,6 @@ export const packages = pgTable(
       'packages_paused_at',
       sql`(${t.status} = 'paused') = (${t.pausedAt} is not null)`,
     ),
-  ],
-)
-
-/**
- * Sessions included per location: for a session pack, the total; for a
- * monthly plan, per month. A gym credit never pays for a home session.
- */
-export const packageAllowances = pgTable(
-  'package_allowances',
-  {
-    packageId: uuid('package_id')
-      .notNull()
-      .references(() => packages.id, { onDelete: 'cascade' }),
-    location: sessionLocation('location').notNull(),
-    sessions: smallint('sessions').notNull(),
-  },
-  (t) => [
-    primaryKey({ columns: [t.packageId, t.location] }),
-    check('package_allowances_positive', sql`${t.sessions} > 0`),
-  ],
-)
-
-export const packageTemplateAllowances = pgTable(
-  'package_template_allowances',
-  {
-    templateId: uuid('template_id')
-      .notNull()
-      .references(() => packageTemplates.id, { onDelete: 'cascade' }),
-    location: sessionLocation('location').notNull(),
-    sessions: smallint('sessions').notNull(),
-  },
-  (t) => [
-    primaryKey({ columns: [t.templateId, t.location] }),
-    check('package_template_allowances_positive', sql`${t.sessions} > 0`),
   ],
 )
 

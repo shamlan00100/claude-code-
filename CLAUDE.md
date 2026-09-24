@@ -98,6 +98,9 @@ npm run db:seed      # dev accounts (requires ALLOW_SEED=true)
 ```
 
 - Never edit a migration that has been pushed; add a new one.
+- Server functions the browser calls live in `*.functions.ts` and only validate input;
+  anything touching the database or the session lives in `*.server.ts`, which never
+  reaches the browser bundle.
 - Session status changes go through `src/server/session-transitions.ts`; program
   assignment through `src/server/programs.ts`; ownership checks through
   `src/server/access.ts`. Add a test in `tests/` for every new rule.
